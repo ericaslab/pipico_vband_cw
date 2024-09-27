@@ -7,8 +7,9 @@ By default vband listens for dits on the left control, and dahs on the right con
 
 ## Hardware
 
-GPIO 0 - Connects to tip
-GPIO 1 - Connects to ring
+- GPIO 0 - Connects to tip of 3.5mm socket
+
+- GPIO 1 - Connects to ring of 3.5mm socket
 
 ## Credits
 Code used here is based on the Adafruit example code for a four button macropad.  
