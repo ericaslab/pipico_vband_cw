@@ -50,16 +50,20 @@ for k in range(NUM_KEYS):
     print("\t", (KEYMAP[k][0]))
 
 
+currently_pressed = set()
 while True:
-    pressed_keys = []
     for i in range(NUM_KEYS):
         keys[i].update()
+        keycodes = set(KEYMAP[i][1])
         if keys[i].fell:
             led.value = True  # Turn on the LED when a key is pressed
+            for kc in keycodes:
+                if kc not in currently_pressed:
+                    kpd.press(kc)
+                    currently_pressed.add(kc)
         if keys[i].rose:
             led.value = False  # Turn off the LED when the key is released
-        if keys[i].value == False:  # Key is held down
-            pressed_keys.extend(KEYMAP[i][1])
-    
-    if pressed_keys:
-        kpd.send(*pressed_keys)
+            for kc in keycodes:
+                if kc in currently_pressed:
+                    kpd.release(kc)
+                    currently_pressed.remove(kc)
